@@ -12,6 +12,10 @@ RSpec.describe DockingStation do
       expect(subject.release_bike.working?).to be_truthy
     end
 
+    it "should receive and dock bike" do
+      expect(subject.dock).to be_a(Bike)
+    end
+
 
   end
 end
