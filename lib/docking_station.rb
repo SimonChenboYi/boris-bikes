@@ -1,7 +1,5 @@
-require_relative './bike'
-
 class DockingStation
-    def relese_bike
+    def release_bike
       Bike.new
-    end 
+    end
 end
