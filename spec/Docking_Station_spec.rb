@@ -13,7 +13,7 @@ RSpec.describe DockingStation do
     end
 
     it "should receive and dock bike" do
-      expect(subject.dock).to be_a(Bike)
+      expect(subject).to respond_to(:dock).with(1).argument
     end
 
 
