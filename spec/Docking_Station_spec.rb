@@ -22,11 +22,10 @@ RSpec.describe DockingStation do
 
 
 
-  describe '#dock_full' do
-    bike = Bike.new
-    it "should not return bike if dock is full" do
-      20.times {subject.dock(bike)}
-    expect { subject.dock(bike) }.to raise_error(RuntimeError)
+  describe '#dock' do
+    it "raises error when dock is full" do
+      subject.capacity.times {subject.dock(Bike.new)}
+    expect { subject.dock(Bike.new) }.to raise_error "Docking station full"
     end
   end
 
@@ -36,9 +35,18 @@ RSpec.describe DockingStation do
     end
   end
 
+  describe 'initialization' do
+  subject { DockingStation.new }
+  let(:bike) { Bike.new }
+  it 'defaults capacity' do
+    DockingStation::DEFAULT_CAPACITY.times {subject.dock(bike)}
+    expect{ subject.dock(bike) }.to raise_error 'Docking station full'
+  end
+end
+
   describe '#release_bike error' do
-    it "raises error when docking station is full" do
-      expect { subject.release_bike }.to raise_error(RuntimeError)
+    it "raises error when no bikes available" do
+      expect { subject.release_bike }.to raise_error "No bikes available"
     end
   end
 
