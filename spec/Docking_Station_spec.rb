@@ -8,7 +8,9 @@ RSpec.describe DockingStation do
 
   #describe '#release_bike' do
   #  it "should release bike" do
-
+  #    bike = Bike.new
+  #    subject.dock(bike)
+  #    expect(subject.release_bike).to eq bike
   #  end
   #end
 
@@ -18,10 +20,13 @@ RSpec.describe DockingStation do
     #end
   #end
 
-  describe '#dock' do
+
+
+  describe '#dock_full' do
     bike = Bike.new
-    it "should receive and dock bike" do
-      expect(subject.dock(bike)).to eq bike
+    it "should not return bike if dock is full" do
+      20.times {subject.dock(bike)}
+    expect { subject.dock(bike) }.to raise_error(RuntimeError)
     end
   end
 
@@ -31,9 +36,9 @@ RSpec.describe DockingStation do
     end
   end
 
-  describe '#error' do
-    it "raises error when there's no bike" do
-      expect { DockingStation.new.release_bike }.to raise_error
+  describe '#release_bike error' do
+    it "raises error when docking station is full" do
+      expect { subject.release_bike }.to raise_error(RuntimeError)
     end
   end
 
