@@ -31,4 +31,10 @@ RSpec.describe DockingStation do
     end
   end
 
+  describe '#error' do
+    it "raises error when there's no bike" do
+      expect { raise StandardError }.to raise_error
+    end
+  end
+
 end
