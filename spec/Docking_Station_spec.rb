@@ -6,6 +6,7 @@ RSpec.describe DockingStation do
     c.example_status_persistence_file_path = "examples.txt"
   end
 
+  double(:bycycle)
   #describe '#release_bike' do
   #  it "should release bike" do
   #    bike = Bike.new
@@ -22,8 +23,8 @@ RSpec.describe DockingStation do
 
   describe '#dock' do
     it "raises error when dock is full" do
-      subject.capacity.times {subject.dock(Bike.new)}
-    expect { subject.dock(Bike.new) }.to raise_error "Docking station full"
+      subject.capacity.times {subject.dock(bycycle)}
+    expect { subject.dock(bycycle) }.to raise_error "Docking station full"
     end
   end
 
@@ -34,13 +35,13 @@ RSpec.describe DockingStation do
   end
 
   describe 'initialization' do
-  subject { DockingStation.new }
-  let(:bike) { Bike.new }
-  it 'defaults capacity' do
-    DockingStation::DEFAULT_CAPACITY.times {subject.dock(bike)}
-    expect{ subject.dock(bike) }.to raise_error 'Docking station full'
+    subject { DockingStation.new }
+    let(:bike) { bycycle }
+    it 'defaults capacity' do
+      DockingStation::DEFAULT_CAPACITY.times {subject.dock(bike)}
+      expect{ subject.dock(bike) }.to raise_error 'Docking station full'
+    end
   end
-end
 
   describe '#release_bike error' do
     it "raises error when no bikes available" do
@@ -48,7 +49,7 @@ end
     end
 
     it "raises error if bike is broken" do
-      bike = Bike.new
+      bike = bycycle
       station = DockingStation.new
       bike.report_broken
       station.dock(bike)
